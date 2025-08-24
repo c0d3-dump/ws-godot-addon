@@ -1,0 +1,24 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="ws"
+run/main_scene="uid://b5yxpd4uo2myb"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+WS="*res://addons/WS/scripts/ws.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/WS/plugin.cfg")
