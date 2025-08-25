@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4fleo16h0cor"]
+
+[ext_resource type="Script" uid="uid://bjuem7tfrabcw" path="res://example/scenes/player/player.gd" id="1_6px8f"]
+[ext_resource type="Script" uid="uid://dk0qqv68besgy" path="res://addons/WS/components/sync_node.gd" id="2_kumyo"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6px8f"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kumyo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kumyo"]
+albedo_color = Color(0.2231029, 0.2231029, 0.22310287, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kumyo"]
+size = Vector3(0.15, 0.15, 0.995)
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_6px8f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_6px8f")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_kumyo")
+
+[node name="CameraHolder" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="CameraHolderSync" type="Node" parent="CameraHolder" node_paths=PackedStringArray("sync_node")]
+script = ExtResource("2_kumyo")
+sync_rotation = true
+sync_node = NodePath("..")
+metadata/_custom_type_script = "uid://dk0qqv68besgy"
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder"]
+unique_name_in_owner = true
+keep_aspect = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CameraHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.28657115, -0.24387121, -0.59274155)
+material_override = SubResource("StandardMaterial3D_kumyo")
+mesh = SubResource("BoxMesh_kumyo")
+
+[node name="Playersync" type="Node" parent="." node_paths=PackedStringArray("sync_node")]
+script = ExtResource("2_kumyo")
+sync_position = true
+sync_rotation = true
+sync_node = NodePath("..")
+lerp_position = 0.3000000000029104
+lerp_rotation = 0.3000000000029104
+metadata/_custom_type_script = "uid://dk0qqv68besgy"

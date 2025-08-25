@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvlbj4qkom77n"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0gcie"]
+size = Vector2(20, 20)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_0gcie"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gcie"]
+albedo_color = Color(0.25882354, 0.76862746, 0.69411767, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0gcie"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yfdhr"]
+
+[node name="Map" type="Node3D"]
+
+[node name="BasePlane" type="StaticBody3D" parent="."]
+collision_mask = 6
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BasePlane"]
+mesh = SubResource("PlaneMesh_0gcie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BasePlane"]
+shape = SubResource("WorldBoundaryShape3D_0gcie")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.902554, 3.6047382, -5.610972)
+collision_layer = 4
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+material_override = SubResource("StandardMaterial3D_0gcie")
+mesh = SubResource("SphereMesh_0gcie")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_yfdhr")
