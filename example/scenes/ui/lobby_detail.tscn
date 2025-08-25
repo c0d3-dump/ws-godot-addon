@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci3a8718golk3"]
+
+[ext_resource type="Script" uid="uid://bcep2xrlv2ade" path="res://example/scenes/ui/lobby_detail.gd" id="1_qrd78"]
+
+[node name="LobbyDetail" type="Control"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_qrd78")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameLabel" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="JoinButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "JOIN"
+
+[connection signal="pressed" from="HBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]

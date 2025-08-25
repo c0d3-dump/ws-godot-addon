@@ -1,4 +1,4 @@
-class_name Response
+class_name ResponseResource
 extends Resource
 
 var status_code: int

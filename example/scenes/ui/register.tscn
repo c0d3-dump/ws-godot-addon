@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://dja250ni8unsd"]
+
+[ext_resource type="Script" uid="uid://clb5g8p31jotl" path="res://example/scenes/ui/register.gd" id="1_cduyo"]
+
+[node name="Register" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cduyo")
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(300, 140)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -70.0
+offset_right = 150.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Email" type="LineEdit" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "test@gmail.com"
+virtual_keyboard_type = 5
+
+[node name="Password" type="LineEdit" parent="Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1234"
+virtual_keyboard_type = 6
+secret = true
+
+[node name="RegisterButton" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+text = "REGISTER"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 82.0
+offset_bottom = 55.0
+text = " BACK "
+
+[connection signal="pressed" from="Control/VBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

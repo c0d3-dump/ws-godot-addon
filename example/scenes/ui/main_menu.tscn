@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxi0niobky3p7"]
+
+[ext_resource type="Script" uid="uid://c4xs8ub2op4s6" path="res://example/scenes/ui/main_menu.gd" id="1_h32rh"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h32rh")
+
+[node name="GameControl" type="Control" parent="."]
+custom_minimum_size = Vector2(250, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -75.0
+offset_right = 125.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="QuickStartButton" type="Button" parent="GameControl/VBoxContainer"]
+layout_mode = 2
+text = "QUICK START"
+
+[node name="CustomGameButton" type="Button" parent="GameControl/VBoxContainer"]
+layout_mode = 2
+text = "CUSTOM GAME"
+
+[node name="SettingsButton" type="Button" parent="GameControl/VBoxContainer"]
+layout_mode = 2
+text = "SETTINGS"
+
+[node name="QuitButton" type="Button" parent="GameControl/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[node name="AuthControl" type="Control" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 1
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 224.0
+offset_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AuthControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="RegisterButton" type="Button" parent="AuthControl/HBoxContainer"]
+layout_mode = 2
+text = " REGISTER "
+
+[node name="LoginButton" type="Button" parent="AuthControl/HBoxContainer"]
+layout_mode = 2
+text = " LOGIN "
+
+[connection signal="pressed" from="GameControl/VBoxContainer/CustomGameButton" to="." method="_on_custom_game_button_pressed"]
+[connection signal="pressed" from="AuthControl/HBoxContainer/RegisterButton" to="." method="_on_register_button_pressed"]
+[connection signal="pressed" from="AuthControl/HBoxContainer/LoginButton" to="." method="_on_login_button_pressed"]

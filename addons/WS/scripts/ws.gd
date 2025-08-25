@@ -23,7 +23,7 @@ func setup(_host: String, _port: int) -> void:
 
 func register(email: String, password: String) -> int:
 	var body := {"email": email, "password": password}
-	var response: Response = Http.request(HTTPClient.METHOD_POST, "/auth/register", body)
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_POST, "/auth/register", body)
 	
 	if response.status_code == 200:
 		var data: Dictionary = JSON.parse_string(response.data)
@@ -36,10 +36,10 @@ func register(email: String, password: String) -> int:
 
 func login(email: String, password: String) -> int:
 	var body := {"email": email, "password": password}
-	var response: Response = Http.request(HTTPClient.METHOD_POST, "/auth/login", body)
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_POST, "/auth/login", body)
 	
 	if response.status_code == 200:
-		var data: Dictionary = JSON.parse_string(response.data)
+		var data := JSON.parse_string(response.data)
 		token = data["token"]
 		user_id = data["user_id"]
 	else:
@@ -47,31 +47,32 @@ func login(email: String, password: String) -> int:
 	
 	return response.status_code
 
-func create_lobby(lobby_name: String) -> int:
+func create_lobby(lobby_name: String) -> String:
 	var body := {"lobby_name": lobby_name}
-	var response: Response = Http.request(HTTPClient.METHOD_POST, "/lobby", body)
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_POST, "/lobby", body)
 	
 	if response.status_code != 200:
 		printerr(response.error)
 	
-	return response.status_code
+	var data := JSON.parse_string(response.data)
+	return data["lobby_id"]
 
-func get_all_lobbies() -> Array[Lobby]:
-	var response: Response = Http.request(HTTPClient.METHOD_GET, "/lobby/all")
+func get_all_lobbies() -> Array[LobbyResource]:
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_GET, "/lobby/all")
 	
 	if response.status_code != 200:
 		printerr(response.error)
 		return []
 	
-	var data = JSON.parse_string(response.data)
-	var lobbies: Array[Lobby] = []
+	var data := JSON.parse_string(response.data)
+	var lobbies: Array[LobbyResource] = []
 	for lobby in data["lobbies"]:
-		lobbies.append(Lobby.new(lobby["id"], lobby["name"], lobby["created_at"]))
+		lobbies.append(LobbyResource.new(lobby["id"], lobby["name"], lobby["created_at"]))
 	return lobbies
 
 func join_lobby(lobby_id: String) -> int:
 	var body := {"lobby_id": lobby_id}
-	var response: Response = Http.request(HTTPClient.METHOD_POST, "/lobby/join", body)
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_POST, "/lobby/join", body)
 	
 	if response.status_code != 200:
 		printerr(response.error)
@@ -80,7 +81,7 @@ func join_lobby(lobby_id: String) -> int:
 
 func leave_lobby(lobby_id: String) -> int:
 	var body := {"lobby_id": lobby_id}
-	var response: Response = Http.request(HTTPClient.METHOD_DELETE, "/lobby/leave", body)
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_DELETE, "/lobby/leave", body)
 	
 	if response.status_code != 200:
 		printerr(response.error)
@@ -88,7 +89,7 @@ func leave_lobby(lobby_id: String) -> int:
 	return response.status_code
 
 func get_all_ws_lobby_members(lobby_id: String) -> Array[String]:
-	var response: Response = Http.request(HTTPClient.METHOD_GET, "/lobby/ws/members?lobby_id=%s"%[lobby_id])
+	var response: ResponseResource = Http.request(HTTPClient.METHOD_GET, "/lobby/ws/members?lobby_id=%s"%[lobby_id])
 	
 	if response.status_code != 200:
 		printerr(response.error)

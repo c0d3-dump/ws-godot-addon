@@ -1,4 +1,4 @@
-class_name Lobby
+class_name LobbyResource
 extends Resource
 
 var id: String

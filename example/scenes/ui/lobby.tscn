@@ -1,0 +1,94 @@
+[gd_scene load_steps=2 format=3 uid="uid://gl2v36yndtbe"]
+
+[ext_resource type="Script" uid="uid://dqc4yedqkcg2e" path="res://example/scenes/ui/lobby.gd" id="1_ysdlw"]
+
+[node name="Lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ysdlw")
+
+[node name="Control" type="Panel" parent="."]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="JoinLobbyContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LobbiesLabel" type="Label" parent="Control/MarginContainer/VBoxContainer/JoinLobbyContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Lobbies"
+vertical_alignment = 1
+uppercase = true
+
+[node name="RefreshButton" type="Button" parent="Control/MarginContainer/VBoxContainer/JoinLobbyContainer"]
+layout_mode = 2
+text = " REFRESH "
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Lobbies" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CreateLobbyCotainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LobbyName" type="LineEdit" parent="Control/MarginContainer/VBoxContainer/CreateLobbyCotainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "test lobby"
+
+[node name="CreateLobbyButton" type="Button" parent="Control/MarginContainer/VBoxContainer/CreateLobbyCotainer"]
+layout_mode = 2
+text = " CREATE "
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 82.0
+offset_bottom = 55.0
+text = " BACK "
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/JoinLobbyContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/CreateLobbyCotainer/CreateLobbyButton" to="." method="_on_create_lobby_button_pressed"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -1,13 +1,13 @@
 class_name Http
 extends Node
 
-static func request(method: HTTPClient.Method, route: String, body: Dictionary = {}) -> Response:
+static func request(method: HTTPClient.Method, route: String, body: Dictionary = {}) -> ResponseResource:
 	var http_client := HTTPClient.new()
 	var host := WS.host
 	var port := WS.port
 	var err := http_client.connect_to_host(host, port)
 	if err != OK:
-		return Response.new(500, "", "Unable to connect to host")
+		return ResponseResource.new(500, "", "Unable to connect to host")
 	
 	while http_client.get_status() == HTTPClient.STATUS_CONNECTING or http_client.get_status() == HTTPClient.STATUS_RESOLVING:
 		http_client.poll()
@@ -25,17 +25,17 @@ static func request(method: HTTPClient.Method, route: String, body: Dictionary =
 	
 	err = http_client.request(method, route, headers, body_str)
 	if err != OK:
-		return Response.new(500, "", "Unable to process request")
+		return ResponseResource.new(500, "", "Unable to process request")
 	
 	while http_client.get_status() == HTTPClient.STATUS_REQUESTING:
 		http_client.poll()
 	
 	if http_client.get_status() != HTTPClient.STATUS_BODY and http_client.get_status() != HTTPClient.STATUS_CONNECTED:
-		return Response.new(500, "", "Unable to process response")
+		return ResponseResource.new(500, "", "Unable to process response")
 	
 	var status_code := http_client.get_response_code()
 	if not http_client.has_response():
-		return Response.new(status_code, "", "Client has no response")
+		return ResponseResource.new(status_code, "", "Client has no response")
 	
 	var rb = PackedByteArray()
 	while http_client.get_status() == HTTPClient.STATUS_BODY:
@@ -46,4 +46,4 @@ static func request(method: HTTPClient.Method, route: String, body: Dictionary =
 			rb = rb + chunk
 	
 	var data = rb.get_string_from_ascii()
-	return Response.new(status_code, data, "")
+	return ResponseResource.new(status_code, data, "")

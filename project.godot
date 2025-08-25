@@ -11,12 +11,16 @@ config_version=5
 [application]
 
 config/name="ws"
+run/main_scene="uid://cy316sduopwh"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 WS="*res://addons/WS/scripts/ws.gd"
+Preloads="*res://example/utils/preloads.gd"
+Events="*res://example/utils/events.gd"
+Dataloader="*res://example/utils/dataloader.gd"
 
 [editor_plugins]
 
